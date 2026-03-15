@@ -5,7 +5,7 @@ import Skills from "../components/Skills";
 import Projects from "../components/Projects";
 // import Architecture from "../components/Architecture";
 // import GitHubStats from "../components/GithubStats";
-// import Contact from "../components/Contact";
+import Contact from "../components/Contact";
 // import Footer from "../components/Footer";
 
 export default function MainLayout() {
@@ -18,8 +18,8 @@ export default function MainLayout() {
         <Skills />
         <Projects />
         {/* <Architecture />
-        <GitHubStats />
-        <Contact /> */}
+        <GitHubStats /> */}
+        <Contact />
       </main>
       {/* <Footer /> */}
     </div>
