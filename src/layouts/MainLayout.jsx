@@ -4,7 +4,7 @@ import About from "../components/About";
 import Skills from "../components/Skills";
 import Projects from "../components/Projects";
 // import Architecture from "../components/Architecture";
-// import GitHubStats from "../components/GithubStats";
+import GitHubStats from "../components/GithubStats";
 import Contact from "../components/Contact";
 // import Footer from "../components/Footer";
 
@@ -17,8 +17,8 @@ export default function MainLayout() {
         <About />
         <Skills />
         <Projects />
-        {/* <Architecture />
-        <GitHubStats /> */}
+        {/* <Architecture /> */}
+        <GitHubStats />
         <Contact />
       </main>
       {/* <Footer /> */}
