@@ -93,7 +93,7 @@ export default function About() {
             <div className="w-52 h-52 sm:w-60 sm:h-60 lg:w-68 lg:h-68 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-2xl shadow-indigo-500/20">
               <div className="w-full h-full rounded-2xl bg-gray-800 flex items-center justify-center overflow-hidden">
                 <img
-                  src="/profile.jpg"
+                  src="/profile.png"
                   alt="Raj Pakhurde"
                   className="w-full h-full object-cover rounded-2xl"
                   onError={(e) => {

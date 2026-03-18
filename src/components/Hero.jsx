@@ -127,7 +127,7 @@ export default function Hero() {
           <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-2xl shadow-indigo-500/30">
             <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
               <img
-                src="/profile.jpg"
+                src="/profile.png"
                 alt="Raj Pakhurde"
                 className="w-full h-full object-cover rounded-full"
                 onError={(e) => {
