@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { CONTACT_INFO } from "../utils/constants";
@@ -40,17 +41,33 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ from_name: "", from_email: "", message: "" });
+  const [status, setStatus] = useState(null); // null | "sending" | "success" | "error"
+  const formRef = useRef();
 
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setSubmitted(false), 4000);
+    setStatus("sending");
+
+    emailjs
+      .sendForm(
+        "service_4utq8p9",
+        "template_2651nhi",
+        formRef.current,
+        "38kyCyDDFkmioKtMI"
+      )
+      .then(() => {
+        setStatus("success");
+        setForm({ from_name: "", from_email: "", message: "" });
+        setTimeout(() => setStatus(null), 4000);
+      })
+      .catch(() => {
+        setStatus("error");
+        setTimeout(() => setStatus(null), 4000);
+      });
   };
 
   return (
@@ -131,6 +148,7 @@ export default function Contact() {
             className="flex-1"
           >
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="bg-gray-800/60 border border-gray-700 rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
             >
@@ -141,8 +159,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
-                  name="name"
-                  value={form.name}
+                  name="from_name"
+                  value={form.from_name}
                   onChange={handleChange}
                   required
                   placeholder="Your name"
@@ -157,8 +175,8 @@ export default function Contact() {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  value={form.email}
+                  name="from_email"
+                  value={form.from_email}
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
@@ -185,21 +203,31 @@ export default function Contact() {
               {/* Submit */}
               <motion.button
                 type="submit"
+                disabled={status === "sending"}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors duration-200 shadow-lg shadow-indigo-500/20"
+                className="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors duration-200 shadow-lg shadow-indigo-500/20 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Send Message
+                {status === "sending" ? "Sending..." : "Send Message"}
               </motion.button>
 
-              {/* Success message */}
-              {submitted && (
+              {status === "success" && (
                 <motion.p
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="text-center text-green-400 text-sm font-medium"
                 >
                   ✅ Message sent successfully!
+                </motion.p>
+              )}
+
+              {status === "error" && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-red-400 text-sm font-medium"
+                >
+                  ❌ Something went wrong. Please try again.
                 </motion.p>
               )}
             </form>
