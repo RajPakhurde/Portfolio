@@ -16,17 +16,17 @@ export const projects = [
     highlight: "JWT auth with role-based access for Admin / Seller / Buyer, car listings & test-drive booking.",
     tech: ["React.js", "Redux", "Spring Boot", "MySQL"],
     image: "/projects/ecar.png",
-    github: "https://github.com/rajpakhurde",
+    github: "https://github.com/orgs/0825-PGKDAC-PROJECT-MYGAADI-2-0/repositories",
     demo: null,
   },
-  {
-    title: "Portfolio Website",
-    description:
-      "A modern developer portfolio built using React and Tailwind CSS to showcase projects, skills, and experience.",
-    highlight: null,
-    tech: ["React.js", "Tailwind CSS", "Vite"],
-    image: "/projects/portfolio.png",
-    github: "https://github.com/rajpakhurde",
-    demo: null,
-  },
+  // {
+  //   title: "Portfolio Website",
+  //   description:
+  //     "A modern developer portfolio built using React and Tailwind CSS to showcase projects, skills, and experience.",
+  //   highlight: null,
+  //   tech: ["React.js", "Tailwind CSS", "Vite"],
+  //   image: "/projects/portfolio.png",
+  //   github: "https://github.com/rajpakhurde",
+  //   demo: null,
+  // },
 ];
