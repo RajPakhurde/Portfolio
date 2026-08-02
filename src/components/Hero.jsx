@@ -14,6 +14,26 @@ const fadeUp = {
   }),
 };
 
+const sentenceVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.1,
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const letterVariants = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.1 },
+  },
+};
+
 export default function Hero() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 400], [0, 100]);
@@ -32,13 +52,25 @@ export default function Hero() {
         {/* Left: Text Content */}
         <div className="flex-1 text-center md:text-left space-y-6">
           <motion.p
-            variants={fadeUp}
+            variants={sentenceVariants}
             initial="hidden"
             animate="visible"
-            custom={0}
-            className="text-accent font-mono text-xs uppercase tracking-widest font-semibold"
+            className="text-accent font-mono text-xs uppercase tracking-widest font-semibold flex flex-wrap justify-center md:justify-start items-center"
           >
-            Hi, I'm Raj Pakhurde
+            {"Hi, I'm Raj Pakhurde".split(" ").map((word, wIdx) => (
+              <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.5em]">
+                {word.split("").map((char, cIdx) => (
+                  <motion.span key={cIdx} variants={letterVariants}>
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
+            <motion.span
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
+              className="inline-block w-[1.5px] h-[12px] bg-accent ml-0.5"
+            />
           </motion.p>
 
           <motion.h1

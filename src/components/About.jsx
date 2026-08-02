@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { FaCode, FaServer, FaDatabase } from "react-icons/fa";
 import SpotlightCard from "./SpotlightCard";
 
@@ -13,6 +14,24 @@ const fadeUp = {
       ease: [0.16, 1, 0.3, 1] 
     },
   }),
+};
+
+const sentenceVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.012, // 12ms per character for readable flow
+    },
+  },
+};
+
+const letterVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.02 },
+  },
 };
 
 const highlights = [
@@ -33,7 +52,76 @@ const highlights = [
   },
 ];
 
+const bioParagraphs = [
+  [
+    { text: "I'm " },
+    { text: "Raj Pakhurde", bold: true },
+    { text: ", a passionate Full Stack Developer with strong experience in Java, Spring Boot, React, and SQL. I recently completed the " },
+    { text: "PG-DAC program", accent: true },
+    { text: " from Sunbeam Institute of Information Technology and enjoy building scalable applications and solving real-world problems." }
+  ],
+  [
+    { text: "I have built projects like " },
+    { text: "ExamSync", bold: true },
+    { text: ", a desktop application for exam cell automation, and " },
+    { text: "AutoSphere", bold: true },
+    { text: ", a full-stack vehicle resale platform with role-based authentication." }
+  ],
+  [
+    { text: "I enjoy learning new technologies, optimizing system performance, and designing clean and scalable software architectures." }
+  ]
+];
+
+function TypewriterText({ chunks, animate, onComplete }) {
+  return (
+    <motion.p
+      variants={sentenceVariants}
+      initial="hidden"
+      animate={animate ? "visible" : "hidden"}
+      onAnimationComplete={() => {
+        if (animate && onComplete) {
+          onComplete();
+        }
+      }}
+      className="text-foreground-muted text-sm sm:text-base leading-relaxed text-center md:text-left min-h-[3em]"
+    >
+      {chunks.map((chunk, chunkIdx) => {
+        let spanClass = "";
+        if (chunk.bold) spanClass = "text-foreground font-semibold";
+        if (chunk.accent) spanClass = "text-accent font-medium font-sans";
+        
+        return (
+          <span key={chunkIdx} className={spanClass}>
+            {chunk.text.split(" ").map((word, wordIdx) => (
+              <span key={wordIdx} className="inline-block whitespace-nowrap mr-[0.25em]">
+                {word.split("").map((char, charIdx) => (
+                  <motion.span
+                    key={charIdx}
+                    variants={letterVariants}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
+          </span>
+        );
+      })}
+    </motion.p>
+  );
+}
+
 export default function About() {
+  const [activeParagraph, setActiveParagraph] = useState(0);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (isInView && activeParagraph === 0) {
+      setActiveParagraph(1);
+    }
+  }, [isInView, activeParagraph]);
+
   return (
     <section id="about" className="py-32 relative z-10 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,33 +155,23 @@ export default function About() {
         {/* Two-column layout */}
         <div className="flex flex-col md:flex-row items-center gap-16 mb-20">
 
-          {/* Left: Text */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            custom={0.1}
-            className="flex-1 space-y-5 text-foreground-muted text-sm sm:text-base leading-relaxed text-center md:text-left"
-          >
-            <p>
-              I'm <span className="text-foreground font-semibold">Raj Pakhurde</span>, a passionate Full Stack Developer
-              with strong experience in Java, Spring Boot, React, and SQL. I recently completed the{" "}
-              <span className="text-accent font-medium font-sans">PG-DAC program</span> from Sunbeam Institute of
-              Information Technology and enjoy building scalable applications and solving real-world problems.
-            </p>
-            <p>
-              I have built projects like{" "}
-              <span className="text-foreground font-semibold">ExamSync</span>, a desktop application for exam cell
-              management, and{" "}
-              <span className="text-foreground font-semibold">AutoSphere</span>, a full-stack vehicle resale platform
-              with role-based authentication.
-            </p>
-            <p>
-              I enjoy learning new technologies, optimizing system performance, and designing clean and scalable
-              software architectures.
-            </p>
-          </motion.div>
+          {/* Left: Text (Sequential Typewriter reveal) */}
+          <div ref={containerRef} className="flex-1 space-y-5">
+            <TypewriterText 
+              chunks={bioParagraphs[0]} 
+              animate={activeParagraph >= 1} 
+              onComplete={() => setActiveParagraph(2)} 
+            />
+            <TypewriterText 
+              chunks={bioParagraphs[1]} 
+              animate={activeParagraph >= 2} 
+              onComplete={() => setActiveParagraph(3)} 
+            />
+            <TypewriterText 
+              chunks={bioParagraphs[2]} 
+              animate={activeParagraph >= 3} 
+            />
+          </div>
 
           {/* Right: Profile Image */}
           <motion.div
