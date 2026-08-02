@@ -20,25 +20,25 @@ const fadeUp = {
 
 const contactItems = [
   {
-    icon: <FaMapMarkerAlt className="text-white dark:text-accent text-lg mt-0.5" />,
+    icon: <FaMapMarkerAlt className="text-accent text-lg mt-0.5" />,
     label: "Location",
     value: CONTACT_INFO.location,
     href: null,
   },
   {
-    icon: <FaEnvelope className="text-white dark:text-accent text-lg mt-0.5" />,
+    icon: <FaEnvelope className="text-accent text-lg mt-0.5" />,
     label: "Email",
     value: CONTACT_INFO.email,
     href: `mailto:${CONTACT_INFO.email}`,
   },
   {
-    icon: <FaGithub className="text-white dark:text-accent text-lg mt-0.5" />,
+    icon: <FaGithub className="text-accent text-lg mt-0.5" />,
     label: "GitHub",
     value: "github.com/rajpakhurde",
     href: CONTACT_INFO.github,
   },
   {
-    icon: <FaLinkedin className="text-white dark:text-accent text-lg mt-0.5" />,
+    icon: <FaLinkedin className="text-accent text-lg mt-0.5" />,
     label: "LinkedIn",
     value: "linkedin.com/in/raj-pakhurde",
     href: CONTACT_INFO.linkedin,
@@ -78,11 +78,8 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className="py-32 relative z-10 bg-[#0F172A] text-white dark:bg-transparent dark:text-foreground transition-colors duration-300 overflow-hidden rounded-3xl my-10"
+      className="py-32 relative z-10 bg-transparent text-foreground transition-colors duration-300"
     >
-      {/* Dot Pattern Texture for Light Mode Inverted slate section */}
-      <div className="absolute inset-0 bg-dot-pattern opacity-[0.05] dark:hidden pointer-events-none" />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Heading */}
@@ -94,22 +91,22 @@ export default function Contact() {
           custom={0}
           className="flex flex-col items-center mb-20"
         >
-          {/* Inverted Badge Label */}
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 dark:border-accent/30 bg-white/5 dark:bg-accent/5 px-4 py-1.5 mb-4">
-            <span className="h-2 w-2 rounded-full bg-white dark:bg-accent animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white dark:text-accent font-semibold">
+          {/* Badge Label */}
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-accent/20 dark:border-accent/30 bg-accent/5 px-4 py-1.5 mb-4">
+            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent font-semibold">
               Contact
             </span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight text-white dark:text-foreground">
+          <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground/95 to-foreground/70 bg-clip-text text-transparent">
             Contact{" "}
-            <span className="bg-gradient-to-r from-white via-white/80 to-white dark:from-accent dark:via-accent-bright dark:to-accent bg-clip-text text-transparent animate-shimmer">
+            <span className="bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
               Me
             </span>
           </h2>
-          <div className="mt-4 mx-auto w-12 h-[1px] bg-gradient-to-r from-transparent via-white/25 dark:via-accent/50 to-transparent" />
-          <p className="mt-4 text-slate-300 dark:text-foreground-muted text-sm sm:text-base max-w-xl mx-auto font-sans leading-relaxed text-center">
+          <div className="mt-4 mx-auto w-12 h-[1px] bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+          <p className="mt-4 text-foreground-muted text-sm sm:text-base max-w-xl mx-auto font-sans leading-relaxed text-center">
             Feel free to reach out if you want to collaborate, discuss opportunities, or just say hello.
           </p>
         </motion.div>
@@ -126,38 +123,38 @@ export default function Contact() {
             custom={0.1}
             className="flex-1"
           >
-            <SpotlightCard className="bg-slate-900/40 dark:bg-bg-elevated border-white/10 dark:border-border-default hover:border-white/20 dark:hover:border-border-hover p-8 h-full flex flex-col justify-between gap-8">
-              <div className="space-y-2">
-                <h3 className="text-white dark:text-foreground font-semibold text-2xl tracking-tight">{CONTACT_INFO.name}</h3>
-                <p className="text-slate-300 dark:text-foreground-muted text-sm font-mono tracking-wide uppercase text-white/70 dark:text-accent/80 font-medium">Full Stack Developer</p>
+            <SpotlightCard className="p-8 h-full flex flex-col justify-between gap-8">
+              <div className="space-y-2 mb-4">
+                <h3 className="text-foreground font-semibold text-2xl tracking-tight">{CONTACT_INFO.name}</h3>
+                <p className="text-foreground-muted text-sm font-mono tracking-wide uppercase text-accent/85 font-medium ">Full Stack Developer</p>
               </div>
 
               <div className="flex flex-col gap-6">
                 {contactItems.map(({ icon, label, value, href }) => (
                   <div key={label} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 dark:bg-white/[0.04] border border-white/10 dark:border-border-default flex items-center justify-center flex-shrink-0 shadow-inner-highlight">
+                    <div className="w-10 h-10 rounded-xl bg-surface border border-border-default flex items-center justify-center flex-shrink-0 shadow-inner-highlight">
                       {icon}
                     </div>
                     <div className="space-y-0.5">
-                      <p className="text-slate-400 dark:text-foreground-subtle text-[10px] font-mono uppercase tracking-wider font-semibold">{label}</p>
+                      <p className="text-foreground-subtle text-[10px] font-mono uppercase tracking-wider font-semibold">{label}</p>
                       {href ? (
                         <a
                           href={href}
                           target={href.startsWith("http") ? "_blank" : undefined}
                           rel="noreferrer"
-                          className="text-white dark:text-foreground hover:text-white dark:hover:text-accent font-sans text-sm font-medium transition-colors duration-200"
+                          className="text-foreground hover:text-accent font-sans text-sm font-medium transition-colors duration-200"
                         >
                           {value}
                         </a>
                       ) : (
-                        <p className="text-white dark:text-foreground text-sm font-sans font-medium">{value}</p>
+                        <p className="text-foreground text-sm font-sans font-medium">{value}</p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className="text-xs text-slate-400 dark:text-foreground-subtle/50 font-mono">
+              <div className="text-xs mt-4 text-foreground-subtle/50 font-mono">
                 Currently looking for new opportunities.
               </div>
             </SpotlightCard>
@@ -172,7 +169,7 @@ export default function Contact() {
             custom={0.2}
             className="flex-1"
           >
-            <SpotlightCard className="bg-slate-900/40 dark:bg-bg-elevated border-white/10 dark:border-border-default hover:border-white/20 dark:hover:border-border-hover p-8 h-full">
+            <SpotlightCard className="p-8 h-full">
               <form
                 ref={formRef}
                 onSubmit={handleSubmit}
@@ -180,7 +177,7 @@ export default function Contact() {
               >
                 {/* Name */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                  <label className="text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
                     Name
                   </label>
                   <input
@@ -190,13 +187,13 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="Your name"
-                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
+                    className="bg-bg-deep border border-border-default focus:border-accent focus:ring-1 focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-foreground text-sm placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
                   />
                 </div>
 
                 {/* Email */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                  <label className="text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
                     Email
                   </label>
                   <input
@@ -206,13 +203,13 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="your@email.com"
-                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
+                    className="bg-bg-deep border border-border-default focus:border-accent focus:ring-1 focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-foreground text-sm placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
                   />
                 </div>
 
                 {/* Message */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                  <label className="text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
                     Message
                   </label>
                   <textarea
@@ -222,7 +219,7 @@ export default function Contact() {
                     required
                     rows={5}
                     placeholder="Write your message..."
-                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 resize-none shadow-inner-highlight"
+                    className="bg-bg-deep border border-border-default focus:border-accent focus:ring-1 focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-foreground text-sm placeholder-foreground-subtle/25 transition-all duration-200 resize-none shadow-inner-highlight"
                   />
                 </div>
 
@@ -232,7 +229,7 @@ export default function Contact() {
                     type="submit"
                     disabled={status === "sending"}
                     whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden w-full py-3 rounded-lg bg-white text-slate-900 hover:bg-slate-100 dark:bg-accent dark:hover:bg-accent-bright dark:text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
+                    className="group relative overflow-hidden w-full py-3 rounded-lg bg-accent hover:bg-accent-bright text-white font-semibold text-sm transition-all duration-300 shadow-button-primary hover:shadow-button-primary-hover disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
                   >
                     <span className="relative z-10">
                       {status === "sending" ? "Sending..." : "Send Message"}
