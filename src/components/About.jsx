@@ -1,28 +1,33 @@
 import { motion } from "framer-motion";
 import { FaCode, FaServer, FaDatabase } from "react-icons/fa";
+import SpotlightCard from "./SpotlightCard";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay },
+    transition: { 
+      duration: 0.5, 
+      delay,
+      ease: [0.16, 1, 0.3, 1] 
+    },
   }),
 };
 
 const highlights = [
   {
-    icon: <FaCode className="text-indigo-400 text-2xl" />,
+    icon: <FaCode className="text-accent text-xl" />,
     title: "Full Stack Development",
     desc: "Building end-to-end web applications with React and Spring Boot.",
   },
   {
-    icon: <FaServer className="text-purple-400 text-2xl" />,
+    icon: <FaServer className="text-indigo-400 dark:text-indigo-400 text-xl" />,
     title: "Backend Development",
     desc: "Designing robust REST APIs and microservices with Java & Spring Boot.",
   },
   {
-    icon: <FaDatabase className="text-pink-400 text-2xl" />,
+    icon: <FaDatabase className="text-purple-400 dark:text-purple-400 text-xl" />,
     title: "Database Optimization",
     desc: "Writing efficient SQL queries and optimizing relational database schemas.",
   },
@@ -30,7 +35,7 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="bg-gray-900 py-24">
+    <section id="about" className="py-32 relative z-10 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Heading */}
@@ -38,43 +43,51 @@ export default function About() {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           custom={0}
-          className="text-center mb-16"
+          className="flex flex-col items-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          {/* Badge Label */}
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-accent/20 dark:border-accent/30 bg-accent/5 px-4 py-1.5 mb-4">
+            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent font-semibold">
+              About
+            </span>
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground/95 to-foreground/70 bg-clip-text text-transparent">
             About{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
               Me
             </span>
           </h2>
-          <div className="mt-3 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" />
+          <div className="mt-4 mx-auto w-12 h-[1px] bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
         </motion.div>
 
         {/* Two-column layout */}
-        <div className="flex flex-col md:flex-row items-center gap-12 mb-16">
+        <div className="flex flex-col md:flex-row items-center gap-16 mb-20">
 
           {/* Left: Text */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.15}
-            className="flex-1 space-y-4 text-gray-400 text-sm sm:text-base leading-relaxed text-center md:text-left"
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0.1}
+            className="flex-1 space-y-5 text-foreground-muted text-sm sm:text-base leading-relaxed text-center md:text-left"
           >
             <p>
-              I'm <span className="text-white font-semibold">Raj Pakhurde</span>, a passionate Full Stack Developer
+              I'm <span className="text-foreground font-semibold">Raj Pakhurde</span>, a passionate Full Stack Developer
               with strong experience in Java, Spring Boot, React, and SQL. I recently completed the{" "}
-              <span className="text-indigo-400 font-medium">PG-DAC program</span> from Sunbeam Institute of
+              <span className="text-accent font-medium font-sans">PG-DAC program</span> from Sunbeam Institute of
               Information Technology and enjoy building scalable applications and solving real-world problems.
             </p>
             <p>
               I have built projects like{" "}
-              <span className="text-white font-medium">AcademiaSuite</span>, a desktop application for exam cell
-              management, and an{" "}
-              <span className="text-white font-medium">E-Car Reselling Platform</span> that allows users to buy and
-              sell used vehicles with role-based authentication.
+              <span className="text-foreground font-semibold">ExamSync</span>, a desktop application for exam cell
+              management, and{" "}
+              <span className="text-foreground font-semibold">AutoSphere</span>, a full-stack vehicle resale platform
+              with role-based authentication.
             </p>
             <p>
               I enjoy learning new technologies, optimizing system performance, and designing clean and scalable
@@ -84,18 +97,20 @@ export default function About() {
 
           {/* Right: Profile Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex-shrink-0"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-shrink-0 relative"
           >
-            <div className="w-52 h-52 sm:w-60 sm:h-60 lg:w-68 lg:h-68 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-2xl shadow-indigo-500/20">
-              <div className="w-full h-full rounded-2xl bg-gray-800 flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 rounded-2xl bg-accent/10 blur-[30px] pointer-events-none transform translate-y-2 scale-95" />
+            
+            <div className="w-52 h-52 sm:w-60 sm:h-60 lg:w-68 lg:h-68 rounded-2xl p-[1px] bg-gradient-to-b from-white/10 to-white/[0.02] border border-border-default shadow-card-default overflow-hidden">
+              <div className="w-full h-full rounded-2xl bg-bg-elevated flex items-center justify-center overflow-hidden">
                 <img
-                  src="/profile.png"
+                  src="/profile_anime.jpg"
                   alt="Raj Pakhurde"
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-cover rounded-2xl filter grayscale hover:grayscale-0 transition-all duration-500 ease-out"
                   onError={(e) => {
                     e.target.style.display = "none";
                     e.target.nextSibling.style.display = "flex";
@@ -105,7 +120,7 @@ export default function About() {
                   className="text-6xl hidden items-center justify-center w-full h-full"
                   aria-hidden="true"
                 >
-                  👨💻
+                  👨‍💻
                 </span>
               </div>
             </div>
@@ -120,15 +135,18 @@ export default function About() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
-              custom={0.1 * (i + 1)}
-              className="bg-gray-800/60 border border-gray-700 rounded-xl p-6 flex flex-col gap-3 hover:border-indigo-500/50 transition-colors duration-300"
+              viewport={{ once: true, margin: "-50px" }}
+              custom={0.08 * (i + 1)}
             >
-              <div className="w-10 h-10 rounded-lg bg-gray-700/60 flex items-center justify-center">
-                {icon}
-              </div>
-              <h3 className="text-white font-semibold text-sm">{title}</h3>
-              <p className="text-gray-400 text-xs leading-relaxed">{desc}</p>
+              <SpotlightCard className="p-6 h-full flex flex-col gap-4">
+                <div className="w-10 h-10 rounded-xl bg-surface border border-border-default flex items-center justify-center shadow-inner-highlight">
+                  {icon}
+                </div>
+                <div className="space-y-1.5">
+                  <h3 className="text-foreground font-semibold text-sm tracking-tight">{title}</h3>
+                  <p className="text-foreground-muted text-xs leading-relaxed">{desc}</p>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>

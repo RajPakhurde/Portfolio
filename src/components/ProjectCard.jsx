@@ -1,93 +1,121 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import SpotlightCard from "./SpotlightCard";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, delay },
+    transition: { 
+      duration: 0.5, 
+      delay,
+      ease: [0.16, 1, 0.3, 1] 
+    },
   }),
 };
 
-export default function ProjectCard({ title, description, highlight, tech, image, github, demo, index }) {
+export default function ProjectCard({ 
+  title, 
+  description, 
+  highlight, 
+  tech, 
+  image, 
+  github, 
+  demo, 
+  index, 
+  className = "" 
+}) {
   return (
     <motion.div
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
-      custom={0.1 * (index + 1)}
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="bg-gray-800/60 border border-gray-700 hover:border-indigo-500/50 rounded-2xl overflow-hidden flex flex-col transition-colors duration-300 shadow-lg shadow-black/20"
+      viewport={{ once: true, margin: "-50px" }}
+      custom={0.08 * (index + 1)}
+      className={`flex flex-col h-full ${className}`}
     >
-      {/* Project Image */}
-      <div className="w-full h-44 bg-gray-700/60 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            e.target.style.display = "none";
-            e.target.nextSibling.style.display = "flex";
-          }}
-        />
-        <div className="w-full h-full hidden items-center justify-center bg-gradient-to-br from-indigo-900/40 to-purple-900/40">
-          <span className="text-4xl">🖥️</span>
-        </div>
-      </div>
-
-      {/* Card Body */}
-      <div className="flex flex-col flex-1 p-5 gap-3">
-        <h3 className="text-white font-bold text-lg">{title}</h3>
-
-        <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
-
-        {highlight && (
-          <p className="text-indigo-400 text-xs font-medium bg-indigo-500/10 border border-indigo-500/20 rounded-lg px-3 py-2 leading-relaxed">
-            ⚡ {highlight}
-          </p>
-        )}
-
-        {/* Tech Badges */}
-        <div className="flex flex-wrap gap-2 mt-auto pt-3">
-          {tech.map((t) => (
-            <span
-              key={t}
-              className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-700 text-gray-300 border border-gray-600"
-            >
-              {t}
-            </span>
-          ))}
+      <SpotlightCard className="flex flex-col h-full border-gradient-hover group">
+        
+        {/* Project Image Container */}
+        <div className="w-full h-48 bg-bg-deep relative overflow-hidden border-b border-border-default">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover filter brightness-[0.9] dark:brightness-[0.8] hover:brightness-[0.98] transition-all duration-700 ease-out group-hover:scale-102"
+            onError={(e) => {
+              e.target.style.display = "none";
+              e.target.nextSibling.style.display = "flex";
+            }}
+          />
+          <div className="absolute inset-0 hidden items-center justify-center bg-gradient-to-br from-indigo-950/20 to-purple-950/20">
+            <span className="text-4xl filter drop-shadow-[0_0_15px_rgba(94,106,210,0.5)]">🖥️</span>
+          </div>
+          
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-bg-base/30 to-transparent" />
         </div>
 
-        {/* Buttons */}
-        <div className="flex gap-3 pt-3">
-          <a
-            href={github}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white text-xs font-medium transition-colors duration-200"
-          >
-            <FaGithub className="text-sm" /> GitHub
-          </a>
-          {demo ? (
+        {/* Card Body */}
+        <div className="flex flex-col flex-1 p-6 sm:p-7 gap-4">
+          <div className="space-y-2">
+            <h3 className="text-foreground font-semibold text-lg sm:text-xl tracking-tight transition-colors duration-300 group-hover:text-accent">
+              {title}
+            </h3>
+            <p className="text-foreground-muted text-xs sm:text-sm leading-relaxed font-sans font-normal">
+              {description}
+            </p>
+          </div>
+
+          {highlight && (
+            <div className="relative overflow-hidden text-accent text-xs font-semibold bg-accent/5 border border-accent/20 rounded-lg px-4 py-3 leading-relaxed shadow-[inset_0_1px_0_0_rgba(255,255,255,0.02)]">
+              <span className="relative z-10">⚡ {highlight}</span>
+            </div>
+          )}
+
+          {/* Tech Badges */}
+          <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-border-default">
+            {tech.map((t) => (
+              <span
+                key={t}
+                className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-md bg-surface text-foreground-subtle border border-border-default shadow-inner-highlight"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex items-center gap-3 pt-2">
             <a
-              href={demo}
+              href={github}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition-colors duration-200"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-bg-elevated hover:bg-surface-hover text-foreground hover:text-accent border border-border-default hover:border-border-hover text-xs font-semibold transition-all duration-300 shadow-inner-highlight hover:shadow-card-hover"
             >
-              <FaExternalLinkAlt className="text-xs" /> Live Demo
+              <FaGithub className="text-sm" /> GitHub
             </a>
-          ) : (
-            <span className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-700/40 text-gray-500 text-xs font-medium cursor-not-allowed border border-gray-700">
-              <FaExternalLinkAlt className="text-xs" /> Coming Soon
-            </span>
-          )}
+            
+            {demo ? (
+              <a
+                href={demo}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative overflow-hidden flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent hover:bg-accent-bright text-white text-xs font-semibold transition-all duration-300 shadow-button-primary hover:shadow-button-primary-hover"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <FaExternalLinkAlt className="text-[10px]" /> Live Demo
+                </span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+              </a>
+            ) : (
+              <span className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-surface text-foreground-subtle/40 border border-border-default text-xs font-semibold cursor-not-allowed select-none">
+                <FaExternalLinkAlt className="text-[10px] opacity-40" /> Coming Soon
+              </span>
+            )}
+          </div>
         </div>
-      </div>
+
+      </SpotlightCard>
     </motion.div>
   );
 }

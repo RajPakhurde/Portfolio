@@ -1,32 +1,22 @@
 export const projects = [
   {
-    title: "AcademiaSuite",
+    title: "AutoSphere",
     description:
-      "A full-stack desktop application built to streamline exam cell operations including student management, exam scheduling, hall ticket generation, and result processing.",
-    highlight: "Optimized DB queries using indexing — reduced execution time from 450ms to 35ms.",
-    tech: ["React.js", "Electron.js", "Express.js", "SQLite"],
-    image: "/projects/academiasuite.png",
-    github: "https://github.com/RajPakhurde/AcademiaSuite",
-    demo: null,
-  },
-  {
-    title: "E-Car Reselling Platform",
-    description:
-      "A full-stack web platform that allows users to buy and sell second-hand vehicles with secure authentication and role-based access control.",
-    highlight: "JWT auth with role-based access for Admin / Seller / Buyer, car listings & test-drive booking.",
-    tech: ["React.js", "Redux", "Spring Boot", "MySQL"],
-    image: "/projects/ecar.png",
+      "A full-stack vehicle resale platform with role-based workflows for Admin, Buyer, and Seller, engineered using an Event-Driven Microservices Architecture with a decoupled .NET (C#) notification service.",
+    highlight: "Integrated RabbitMQ (via Docker) for asynchronous communication between Spring Boot monolith and .NET service, ensuring non-blocking APIs and high fault tolerance.",
+    tech: ["Java", "Spring Boot", "C# .NET", "RabbitMQ", "MySQL", "React.js", "Redux"],
+    image: "/projects/autosphere.png",
     github: "https://github.com/orgs/0825-PGKDAC-PROJECT-MYGAADI-2-0/repositories",
     demo: null,
   },
-  // {
-  //   title: "Portfolio Website",
-  //   description:
-  //     "A modern developer portfolio built using React and Tailwind CSS to showcase projects, skills, and experience.",
-  //   highlight: null,
-  //   tech: ["React.js", "Tailwind CSS", "Vite"],
-  //   image: "/projects/portfolio.png",
-  //   github: "https://github.com/rajpakhurde",
-  //   demo: null,
-  // },
+  {
+    title: "ExamSync",
+    description:
+      "A cross-platform desktop application to automate exam cell operations and academic workflows including student data management, exam scheduling, hall ticket generation, and result processing.",
+    highlight: "Designed and handled structured datasets with 2000+ student records efficiently, implementing automated PDF generation for hall tickets.",
+    tech: ["React.js", "Express.js", "Electron.js", "SQLite"],
+    image: "/projects/examsync.png",
+    github: "https://github.com/RajPakhurde/AcademiaSuite",
+    demo: null,
+  },
 ];

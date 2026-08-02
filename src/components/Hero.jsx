@@ -1,44 +1,55 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay },
+    transition: { 
+      duration: 0.5, 
+      delay,
+      ease: [0.16, 1, 0.3, 1] 
+    },
   }),
 };
 
 export default function Hero() {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 400], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 250], [1, 0]);
+  const scale = useTransform(scrollY, [0, 400], [1, 0.97]);
+
   return (
     <section
       id="home"
-      className="min-h-screen bg-gray-950 flex items-center pt-16"
+      className="relative min-h-screen flex items-center pt-16 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 flex flex-col-reverse md:flex-row items-center gap-12">
-
+      <motion.div 
+        style={{ y, opacity, scale }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 flex flex-col-reverse md:flex-row items-center gap-16 relative z-10"
+      >
         {/* Left: Text Content */}
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1 text-center md:text-left space-y-6">
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             custom={0}
-            className="text-indigo-400 font-medium text-lg mb-2"
+            className="text-accent font-mono text-xs uppercase tracking-widest font-semibold"
           >
-            Hi, I'm Raj Pakhurde 👋
+            Hi, I'm Raj Pakhurde
           </motion.p>
 
           <motion.h1
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={0.15}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight"
+            custom={0.1}
+            className="text-4xl sm:text-5xl lg:text-7xl font-serif font-semibold tracking-tight leading-none text-foreground"
           >
             Full Stack{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="block mt-2 bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
               Developer
             </span>
           </motion.h1>
@@ -47,18 +58,28 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={0.3}
-            className="mt-4 text-gray-400 text-base sm:text-lg font-mono tracking-wide"
+            custom={0.2}
+            className="text-foreground-muted text-sm sm:text-base font-mono tracking-wide flex flex-wrap gap-2 justify-center md:justify-start items-center"
           >
-            Java &nbsp;|&nbsp; Spring Boot &nbsp;|&nbsp; React &nbsp;|&nbsp; SQL
+            <span>Java</span>
+            <span className="text-foreground-subtle/20">•</span>
+            <span>Spring Boot</span>
+            <span className="text-foreground-subtle/20">•</span>
+            <span>React</span>
+            <span className="text-foreground-subtle/20">•</span>
+            <span>C# .NET</span>
+            <span className="text-foreground-subtle/20">•</span>
+            <span>Node.js</span>
+            <span className="text-foreground-subtle/20">•</span>
+            <span>SQL</span>
           </motion.p>
 
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={0.45}
-            className="mt-5 text-gray-400 text-sm sm:text-base max-w-xl mx-auto md:mx-0 leading-relaxed"
+            custom={0.3}
+            className="text-foreground-muted text-sm sm:text-base max-w-xl mx-auto md:mx-0 leading-relaxed font-sans"
           >
             I build scalable full-stack applications and enjoy solving
             real-world problems using modern technologies.
@@ -69,24 +90,25 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={0.6}
-            className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start"
+            custom={0.4}
+            className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start"
           >
             <motion.a
               href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-6 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors duration-200 shadow-lg shadow-indigo-500/20"
+              whileTap={{ scale: 0.98 }}
+              className="group relative overflow-hidden px-6 py-3 rounded-lg bg-gradient-to-r from-accent to-accent-bright text-white font-semibold text-sm transition-all duration-300 shadow-button-primary hover:shadow-button-primary-hover flex items-center gap-2 cursor-pointer"
             >
-              View Projects
+              <span className="relative z-10">View Projects</span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
             </motion.a>
+
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-6 py-3 rounded-lg border border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white font-semibold text-sm transition-all duration-200"
+              whileTap={{ scale: 0.98 }}
+              className="group relative overflow-hidden px-6 py-3 rounded-lg bg-bg-elevated text-foreground border border-border-default hover:bg-surface-hover hover:border-border-hover font-semibold text-sm transition-all duration-300 shadow-inner-highlight hover:shadow-card-hover flex items-center gap-2 cursor-pointer"
             >
-              Contact Me
+              <span className="relative z-10">Contact Me</span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-foreground/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
             </motion.a>
           </motion.div>
 
@@ -95,14 +117,15 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            custom={0.75}
-            className="mt-6 flex gap-5 justify-center md:justify-start"
+            custom={0.5}
+            className="pt-2 flex gap-5 justify-center md:justify-start"
           >
             <a
               href="https://github.com/rajpakhurde"
               target="_blank"
               rel="noreferrer"
-              className="text-gray-400 hover:text-white text-2xl transition-colors duration-200"
+              className="text-foreground-subtle hover:text-foreground text-xl transition-colors duration-200"
+              aria-label="GitHub Profile"
             >
               <FaGithub />
             </a>
@@ -110,7 +133,8 @@ export default function Hero() {
               href="https://www.linkedin.com/in/raj-pakhurde/"
               target="_blank"
               rel="noreferrer"
-              className="text-gray-400 hover:text-indigo-400 text-2xl transition-colors duration-200"
+              className="text-foreground-subtle hover:text-accent text-xl transition-colors duration-200"
+              aria-label="LinkedIn Profile"
             >
               <FaLinkedin />
             </a>
@@ -119,17 +143,20 @@ export default function Hero() {
 
         {/* Right: Profile Image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="flex-shrink-0"
+          transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex-shrink-0 relative"
         >
-          <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-1 shadow-2xl shadow-indigo-500/30">
-            <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
+          {/* Subtle accent glow behind the profile image */}
+          <div className="absolute inset-0 rounded-full bg-accent/20 blur-[50px] pointer-events-none transform -translate-y-4 scale-95 animate-pulse-slow" />
+          
+          <div className="relative w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full p-[1px] bg-gradient-to-b from-white/10 to-white/[0.02] border border-border-default shadow-card-default overflow-hidden">
+            <div className="w-full h-full rounded-full bg-bg-elevated flex items-center justify-center overflow-hidden">
               <img
-                src="/profile.png"
+                src="/profile_anime.jpg"
                 alt="Raj Pakhurde"
-                className="w-full h-full object-cover rounded-full"
+                className="w-full h-full object-cover rounded-full filter grayscale hover:grayscale-0 transition-all duration-500 ease-out"
                 onError={(e) => {
                   e.target.style.display = "none";
                   e.target.nextSibling.style.display = "flex";
@@ -139,13 +166,12 @@ export default function Hero() {
                 className="text-6xl hidden items-center justify-center w-full h-full"
                 aria-hidden="true"
               >
-                👨💻
+                👨‍💻
               </span>
             </div>
           </div>
         </motion.div>
-
-      </div>
+      </motion.div>
     </section>
   );
 }

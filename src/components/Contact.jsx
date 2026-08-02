@@ -3,37 +3,42 @@ import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { CONTACT_INFO } from "../utils/constants";
+import SpotlightCard from "./SpotlightCard";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, delay },
+    transition: { 
+      duration: 0.5, 
+      delay,
+      ease: [0.16, 1, 0.3, 1] 
+    },
   }),
 };
 
 const contactItems = [
   {
-    icon: <FaMapMarkerAlt className="text-indigo-400 text-lg mt-0.5" />,
+    icon: <FaMapMarkerAlt className="text-white dark:text-accent text-lg mt-0.5" />,
     label: "Location",
     value: CONTACT_INFO.location,
     href: null,
   },
   {
-    icon: <FaEnvelope className="text-indigo-400 text-lg mt-0.5" />,
+    icon: <FaEnvelope className="text-white dark:text-accent text-lg mt-0.5" />,
     label: "Email",
     value: CONTACT_INFO.email,
     href: `mailto:${CONTACT_INFO.email}`,
   },
   {
-    icon: <FaGithub className="text-indigo-400 text-lg mt-0.5" />,
+    icon: <FaGithub className="text-white dark:text-accent text-lg mt-0.5" />,
     label: "GitHub",
     value: "github.com/rajpakhurde",
     href: CONTACT_INFO.github,
   },
   {
-    icon: <FaLinkedin className="text-indigo-400 text-lg mt-0.5" />,
+    icon: <FaLinkedin className="text-white dark:text-accent text-lg mt-0.5" />,
     label: "LinkedIn",
     value: "linkedin.com/in/raj-pakhurde",
     href: CONTACT_INFO.linkedin,
@@ -71,71 +76,91 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-gray-950 py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section 
+      id="contact" 
+      className="py-32 relative z-10 bg-[#0F172A] text-white dark:bg-transparent dark:text-foreground transition-colors duration-300 overflow-hidden rounded-3xl my-10"
+    >
+      {/* Dot Pattern Texture for Light Mode Inverted slate section */}
+      <div className="absolute inset-0 bg-dot-pattern opacity-[0.05] dark:hidden pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Heading */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           custom={0}
-          className="text-center mb-16"
+          className="flex flex-col items-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          {/* Inverted Badge Label */}
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 dark:border-accent/30 bg-white/5 dark:bg-accent/5 px-4 py-1.5 mb-4">
+            <span className="h-2 w-2 rounded-full bg-white dark:bg-accent animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white dark:text-accent font-semibold">
+              Contact
+            </span>
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight text-white dark:text-foreground">
             Contact{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-white/80 to-white dark:from-accent dark:via-accent-bright dark:to-accent bg-clip-text text-transparent animate-shimmer">
               Me
             </span>
           </h2>
-          <div className="mt-3 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" />
-          <p className="mt-5 text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+          <div className="mt-4 mx-auto w-12 h-[1px] bg-gradient-to-r from-transparent via-white/25 dark:via-accent/50 to-transparent" />
+          <p className="mt-4 text-slate-300 dark:text-foreground-muted text-sm sm:text-base max-w-xl mx-auto font-sans leading-relaxed text-center">
             Feel free to reach out if you want to collaborate, discuss opportunities, or just say hello.
           </p>
         </motion.div>
 
         {/* Two-column layout */}
-        <div className="flex flex-col md:flex-row gap-10">
+        <div className="flex flex-col md:flex-row gap-10 items-stretch">
 
           {/* Left: Contact Info */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.15}
-            className="flex-1 flex flex-col gap-6"
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0.1}
+            className="flex-1"
           >
-            <div>
-              <h3 className="text-white font-bold text-xl mb-1">{CONTACT_INFO.name}</h3>
-              <p className="text-gray-400 text-sm">Full Stack Developer</p>
-            </div>
+            <SpotlightCard className="bg-slate-900/40 dark:bg-bg-elevated border-white/10 dark:border-border-default hover:border-white/20 dark:hover:border-border-hover p-8 h-full flex flex-col justify-between gap-8">
+              <div className="space-y-2">
+                <h3 className="text-white dark:text-foreground font-semibold text-2xl tracking-tight">{CONTACT_INFO.name}</h3>
+                <p className="text-slate-300 dark:text-foreground-muted text-sm font-mono tracking-wide uppercase text-white/70 dark:text-accent/80 font-medium">Full Stack Developer</p>
+              </div>
 
-            <div className="flex flex-col gap-5">
-              {contactItems.map(({ icon, label, value, href }) => (
-                <div key={label} className="flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                    {icon}
+              <div className="flex flex-col gap-6">
+                {contactItems.map(({ icon, label, value, href }) => (
+                  <div key={label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 dark:bg-white/[0.04] border border-white/10 dark:border-border-default flex items-center justify-center flex-shrink-0 shadow-inner-highlight">
+                      {icon}
+                    </div>
+                    <div className="space-y-0.5">
+                      <p className="text-slate-400 dark:text-foreground-subtle text-[10px] font-mono uppercase tracking-wider font-semibold">{label}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          target={href.startsWith("http") ? "_blank" : undefined}
+                          rel="noreferrer"
+                          className="text-white dark:text-foreground hover:text-white dark:hover:text-accent font-sans text-sm font-medium transition-colors duration-200"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="text-white dark:text-foreground text-sm font-sans font-medium">{value}</p>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-gray-500 text-xs uppercase tracking-wider mb-0.5">{label}</p>
-                    {href ? (
-                      <a
-                        href={href}
-                        target={href.startsWith("http") ? "_blank" : undefined}
-                        rel="noreferrer"
-                        className="text-gray-300 text-sm hover:text-indigo-400 transition-colors duration-200"
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="text-gray-300 text-sm">{value}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+              
+              <div className="text-xs text-slate-400 dark:text-foreground-subtle/50 font-mono">
+                Currently looking for new opportunities.
+              </div>
+            </SpotlightCard>
           </motion.div>
 
           {/* Right: Contact Form */}
@@ -143,94 +168,100 @@ export default function Contact() {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.3}
+            viewport={{ once: true, margin: "-100px" }}
+            custom={0.2}
             className="flex-1"
           >
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="bg-gray-800/60 border border-gray-700 rounded-2xl p-6 sm:p-8 flex flex-col gap-5"
-            >
-              {/* Name */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-gray-400 text-xs font-medium uppercase tracking-wider">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="from_name"
-                  value={form.from_name}
-                  onChange={handleChange}
-                  required
-                  placeholder="Your name"
-                  className="bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:outline-none rounded-lg px-4 py-3 text-gray-200 text-sm placeholder-gray-600 transition-colors duration-200"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-gray-400 text-xs font-medium uppercase tracking-wider">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="from_email"
-                  value={form.from_email}
-                  onChange={handleChange}
-                  required
-                  placeholder="your@email.com"
-                  className="bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:outline-none rounded-lg px-4 py-3 text-gray-200 text-sm placeholder-gray-600 transition-colors duration-200"
-                />
-              </div>
-
-              {/* Message */}
-              <div className="flex flex-col gap-1.5">
-                <label className="text-gray-400 text-xs font-medium uppercase tracking-wider">
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  placeholder="Write your message..."
-                  className="bg-gray-900 border border-gray-700 focus:border-indigo-500 focus:outline-none rounded-lg px-4 py-3 text-gray-200 text-sm placeholder-gray-600 transition-colors duration-200 resize-none"
-                />
-              </div>
-
-              {/* Submit */}
-              <motion.button
-                type="submit"
-                disabled={status === "sending"}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="w-full py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-colors duration-200 shadow-lg shadow-indigo-500/20 disabled:opacity-60 disabled:cursor-not-allowed"
+            <SpotlightCard className="bg-slate-900/40 dark:bg-bg-elevated border-white/10 dark:border-border-default hover:border-white/20 dark:hover:border-border-hover p-8 h-full">
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-5 h-full justify-between"
               >
-                {status === "sending" ? "Sending..." : "Send Message"}
-              </motion.button>
+                {/* Name */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="from_name"
+                    value={form.from_name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your name"
+                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
+                  />
+                </div>
 
-              {status === "success" && (
-                <motion.p
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center text-green-400 text-sm font-medium"
-                >
-                  ✅ Message sent successfully!
-                </motion.p>
-              )}
+                {/* Email */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="from_email"
+                    value={form.from_email}
+                    onChange={handleChange}
+                    required
+                    placeholder="your@email.com"
+                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 shadow-inner-highlight"
+                  />
+                </div>
 
-              {status === "error" && (
-                <motion.p
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center text-red-400 text-sm font-medium"
-                >
-                  ❌ Something went wrong. Please try again.
-                </motion.p>
-              )}
-            </form>
+                {/* Message */}
+                <div className="flex flex-col gap-2">
+                  <label className="text-slate-300 dark:text-foreground-muted text-[10px] font-mono uppercase tracking-wider font-semibold">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                    rows={5}
+                    placeholder="Write your message..."
+                    className="bg-slate-950/60 dark:bg-[#0F0F12] border border-white/10 dark:border-border-default focus:border-white dark:focus:border-accent focus:ring-1 focus:ring-white/20 dark:focus:ring-accent/30 focus:outline-none rounded-lg px-4 py-3 text-white dark:text-foreground text-sm placeholder-slate-500 dark:placeholder-foreground-subtle/25 transition-all duration-200 resize-none shadow-inner-highlight"
+                  />
+                </div>
+
+                {/* Submit */}
+                <div className="pt-2 space-y-4">
+                  <motion.button
+                    type="submit"
+                    disabled={status === "sending"}
+                    whileTap={{ scale: 0.98 }}
+                    className="group relative overflow-hidden w-full py-3 rounded-lg bg-white text-slate-900 hover:bg-slate-100 dark:bg-accent dark:hover:bg-accent-bright dark:text-white font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
+                  >
+                    <span className="relative z-10">
+                      {status === "sending" ? "Sending..." : "Send Message"}
+                    </span>
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                  </motion.button>
+
+                  {status === "success" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center text-emerald-400 text-xs font-semibold font-mono"
+                    >
+                      ✓ Message sent successfully!
+                    </motion.p>
+                  )}
+
+                  {status === "error" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-center text-rose-400 text-xs font-semibold font-mono"
+                    >
+                      ✗ Something went wrong. Please try again.
+                    </motion.p>
+                  )}
+                </div>
+              </form>
+            </SpotlightCard>
           </motion.div>
 
         </div>

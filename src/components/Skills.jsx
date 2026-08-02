@@ -1,83 +1,93 @@
 import { motion } from "framer-motion";
 import {
   FaJava, FaJs, FaReact, FaNodeJs, FaDocker, FaGitAlt,
-  FaHtml5, FaCss3Alt, FaBootstrap, FaDatabase,
+  FaHtml5, FaCss3Alt, FaBootstrap, FaDatabase, FaGithub, FaServer
 } from "react-icons/fa";
 import {
-  SiCplusplus, SiMysql, SiSqlite, SiSpringboot, SiRedux,
-  SiExpress, SiKubernetes, SiPostman, SiVscodium,
+  SiMysql, SiSqlite, SiSpringboot, SiRedux,
+  SiExpress, SiPostman, SiVscodium,
+  SiSharp, SiDotnet, SiRabbitmq, SiHibernate, SiSwagger
 } from "react-icons/si";
+import SpotlightCard from "./SpotlightCard";
 
 const categories = [
   {
     label: "Languages",
-    color: "from-indigo-500 to-blue-500",
-    iconColor: "text-indigo-400",
+    color: "from-accent to-blue-500",
+    iconColor: "text-accent",
     skills: [
       { name: "Java",       icon: <FaJava /> },
+      { name: "C#",         icon: <SiSharp /> },
       { name: "JavaScript", icon: <FaJs /> },
-      { name: "C++",        icon: <SiCplusplus /> },
       { name: "SQL",        icon: <FaDatabase /> },
+      { name: "HTML",       icon: <FaHtml5 /> },
+      { name: "CSS",        icon: <FaCss3Alt /> },
     ],
   },
   {
     label: "Frontend",
-    color: "from-cyan-500 to-teal-500",
+    color: "from-cyan-500 to-indigo-500",
     iconColor: "text-cyan-400",
     skills: [
       { name: "React.js",       icon: <FaReact /> },
       { name: "Redux Toolkit",  icon: <SiRedux /> },
-      { name: "HTML",           icon: <FaHtml5 /> },
-      { name: "CSS",            icon: <FaCss3Alt /> },
       { name: "Bootstrap",      icon: <FaBootstrap /> },
     ],
   },
   {
     label: "Backend",
-    color: "from-violet-500 to-purple-500",
-    iconColor: "text-violet-400",
+    color: "from-purple-500 to-accent",
+    iconColor: "text-purple-400",
     skills: [
-      { name: "Spring Boot", icon: <SiSpringboot /> },
-      { name: "Spring MVC",  icon: <SiSpringboot /> },
-      { name: "Node.js",     icon: <FaNodeJs /> },
-      { name: "Express.js",  icon: <SiExpress /> },
+      { name: "Spring Boot",   icon: <SiSpringboot /> },
+      { name: ".NET Core",     icon: <SiDotnet /> },
+      { name: "Microservices", icon: <FaServer /> },
+      { name: "Node.js",       icon: <FaNodeJs /> },
+      { name: "Express.js",    icon: <SiExpress /> },
+      { name: "Hibernate",     icon: <SiHibernate /> },
     ],
   },
   {
-    label: "Database",
-    color: "from-orange-500 to-amber-500",
+    label: "Databases & Messaging",
+    color: "from-orange-500 to-yellow-500",
     iconColor: "text-orange-400",
     skills: [
-      { name: "MySQL",  icon: <SiMysql /> },
-      { name: "SQLite", icon: <SiSqlite /> },
+      { name: "MySQL",    icon: <SiMysql /> },
+      { name: "SQLite",   icon: <SiSqlite /> },
+      { name: "RabbitMQ", icon: <SiRabbitmq /> },
     ],
   },
   {
-    label: "DevOps / Tools",
-    color: "from-pink-500 to-rose-500",
+    label: "Tools & Technologies",
+    color: "from-pink-500 to-accent",
     iconColor: "text-pink-400",
     skills: [
-      { name: "Docker",     icon: <FaDocker /> },
-      { name: "Kubernetes", icon: <SiKubernetes /> },
-      { name: "Git",        icon: <FaGitAlt /> },
-      { name: "Postman",    icon: <SiPostman /> },
-      { name: "VS Code",    icon: <SiVscodium /> },
+      { name: "Docker",   icon: <FaDocker /> },
+      { name: "Git",      icon: <FaGitAlt /> },
+      { name: "GitHub",   icon: <FaGithub /> },
+      { name: "Postman",  icon: <SiPostman /> },
+      { name: "Swagger",  icon: <SiSwagger /> },
+      { name: "VS Code",  icon: <SiVscodium /> },
     ],
   },
 ];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 16 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay },
+    transition: { 
+      duration: 0.5, 
+      delay,
+      ease: [0.16, 1, 0.3, 1]
+    },
   }),
 };
 
 export default function Skills() {
   return (
-    <section id="skills" className="bg-gray-950 py-24">
+    <section id="skills" className="py-32 relative z-10 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Heading */}
@@ -85,34 +95,42 @@ export default function Skills() {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           custom={0}
-          className="text-center mb-16"
+          className="flex flex-col items-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          {/* Badge Label */}
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-accent/20 dark:border-accent/30 bg-accent/5 px-4 py-1.5 mb-4">
+            <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent font-semibold">
+              Skills
+            </span>
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight bg-gradient-to-b from-foreground via-foreground/95 to-foreground/70 bg-clip-text text-transparent">
             Skills &amp;{" "}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
               Technologies
             </span>
           </h2>
-          <div className="mt-3 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500" />
+          <div className="mt-4 mx-auto w-12 h-[1px] bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
         </motion.div>
 
         {/* Categories */}
-        <div className="space-y-12">
+        <div className="space-y-16">
           {categories.map(({ label, color, iconColor, skills }, catIdx) => (
-            <div key={label}>
+            <div key={label} className="space-y-6">
               {/* Category Label */}
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-100px" }}
                 custom={0.05 * catIdx}
-                className="flex items-center gap-3 mb-5"
+                className="flex items-center gap-3"
               >
-                <span className={`h-0.5 w-6 rounded-full bg-gradient-to-r ${color}`} />
-                <h3 className="text-gray-300 font-semibold text-sm uppercase tracking-widest">
+                <span className={`h-[2px] w-6 rounded-full bg-gradient-to-r ${color}`} />
+                <h3 className="text-foreground-subtle font-mono text-xs uppercase tracking-widest font-semibold">
                   {label}
                 </h3>
               </motion.div>
@@ -125,15 +143,21 @@ export default function Skills() {
                     variants={fadeUp}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
-                    custom={0.05 * catIdx + 0.06 * i}
-                    whileHover={{ scale: 1.06 }}
-                    className="bg-gray-800/60 border border-gray-700 hover:border-indigo-500/50 rounded-xl p-4 flex flex-col items-center gap-3 cursor-default transition-colors duration-300"
+                    viewport={{ once: true, margin: "-50px" }}
+                    custom={0.05 * catIdx + 0.03 * i}
+                    whileHover={{ y: -3 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <span className={`text-3xl ${iconColor}`}>
-                      {icon}
-                    </span>
-                    <span className="text-gray-300 text-xs font-medium text-center">{name}</span>
+                    <SpotlightCard className="p-4 cursor-default">
+                      <div className="flex flex-col items-center gap-3 w-full h-full justify-center py-2">
+                        <span className={`text-3xl ${iconColor} transition-transform duration-300 group-hover:scale-110`}>
+                          {icon}
+                        </span>
+                        <span className="text-foreground-muted text-xs font-semibold text-center font-sans tracking-wide">
+                          {name}
+                        </span>
+                      </div>
+                    </SpotlightCard>
                   </motion.div>
                 ))}
               </div>
