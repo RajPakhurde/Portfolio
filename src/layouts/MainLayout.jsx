@@ -56,6 +56,9 @@ export default function MainLayout() {
         {/* Tertiary Blob */}
         <div className="absolute top-[50%] -right-[200px] w-[500px] h-[700px] rounded-full bg-indigo-900/8 blur-[100px] animate-float-slow" />
         
+        {/* Center Glow Blob (Soft gradient circle in the middle) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-accent-bright/6 blur-[130px] animate-pulse-slow pointer-events-none" />
+
         {/* Bottom Accent */}
         <div className="absolute bottom-[-100px] left-[20%] w-[900px] h-[600px] rounded-full bg-accent/8 blur-[130px] animate-pulse-slow" />
       </div>
