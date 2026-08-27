@@ -11,26 +11,15 @@ import CustomCursor from "../components/CustomCursor";
 import GlassmorphicBackground from "../components/GlassmorphicBackground";
 
 export default function MainLayout() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "light";
-    }
-    return "light";
-  });
+  const theme = "light";
 
   useEffect(() => {
     const root = window.document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    root.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+  const toggleTheme = () => {};
 
   return (
     <div className="relative min-h-screen bg-bg-deep text-foreground selection:bg-accent/30 selection:text-foreground overflow-x-hidden font-sans transition-colors duration-300">
