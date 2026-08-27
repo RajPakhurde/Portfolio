@@ -29,5 +29,14 @@ export const projects = [
     github: "https://github.com/RajPakhurde/AcademiaSuite",
     demo: null,
   },
-  
+  {
+    title: "Ayame Restaurant",
+    description:
+      "A premium, responsive single-page landing site for Ayame, a modern Asian fusion lounge in CBD Belapur, Navi Mumbai. Built to show visual brand identity, dynamic menu highlights, and booking CTAs.",
+    highlight: "Engineered a custom Pinterest-style masonry photo gallery, built an interactive full-menu lightbox modal, and added premium preloader animations using Framer Motion.",
+    tech: ["React.js", "Vite", "Framer Motion", "CSS"],
+    image: "/projects/ayame.png",
+    github: "https://github.com/RajPakhurde/ayame-restaurant",
+    demo: "https://ayame.restaurant.rajpakhurde.in/",
+  },
 ];
