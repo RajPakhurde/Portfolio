@@ -182,7 +182,6 @@ export default function Projects() {
       if (newIndex === activeIndex) return;
 
       // Determine direction: 1 = forward (next), -1 = backward (prev)
-      // Handle wrap-around correctly
       let direction = 1;
       const diff = newIndex - activeIndex;
       if (diff === 1 || diff === -(N - 1)) {
@@ -192,7 +191,6 @@ export default function Projects() {
       }
 
       const justExited = activeIndex;
-      exitingIndex = justExited;
 
       // Immediately remove is-active from the exiting card so the
       // new active card takes over content display without overlap
@@ -201,6 +199,7 @@ export default function Projects() {
       }
 
       if (direction === -1) {
+        exitingIndex = null; // No card exits stage; old active slides to right stack
         const incomingCard = cardEls[newIndex];
         if (incomingCard) {
           // Instantly snap incoming card to the far left off-screen
@@ -219,6 +218,7 @@ export default function Projects() {
           render(direction);
         }
       } else {
+        exitingIndex = justExited; // Old active flies left off-stage
         activeIndex = newIndex;
         render(direction);
       }
@@ -227,18 +227,20 @@ export default function Projects() {
       exitTimer = setTimeout(() => {
         exitingIndex = null;
 
-        // Snap exited card back to its queue position without animation
-        const card = cardEls[justExited];
-        if (card) {
-          card.style.transition = "none";
-          card.offsetHeight; // force reflow
+        if (direction === 1) {
+          // Only snap exited card back to its queue position on forward loop
+          const card = cardEls[justExited];
+          if (card) {
+            card.style.transition = "none";
+            card.offsetHeight; // force reflow
+          }
+          render(direction);
+          setTimeout(() => {
+            if (card) card.style.transition = "";
+          }, 50);
+        } else {
+          render(direction);
         }
-
-        render(direction);
-
-        setTimeout(() => {
-          if (card) card.style.transition = "";
-        }, 50);
       }, 500);
     }
 
@@ -303,6 +305,8 @@ export default function Projects() {
           flex: 1;
           height: 500px;
           overflow: hidden;
+          -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 98%);
+          mask-image: linear-gradient(to right, #000 80%, transparent 98%);
         }
 
         /* ─── BASE CARD ─────────────────────────────────── */
@@ -396,14 +400,14 @@ export default function Projects() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          filter: brightness(0.3) blur(4px) saturate(1.2);
+          filter: brightness(0.58) blur(1.5px) saturate(1.25);
           transform: scale(1.08);
           /* Animate in when card becomes active */
           animation: heroImgIn 0.7s cubic-bezier(.16,1,.3,1) forwards;
         }
         #projects .carousel-card.is-active:hover .carousel-hero-img {
           transform: scale(1.12);
-          filter: brightness(0.35) blur(3px) saturate(1.4);
+          filter: brightness(0.66) blur(1px) saturate(1.4);
           transition: transform 0.8s cubic-bezier(.16,1,.3,1), filter 0.5s;
           animation: none; /* let hover transition take over */
         }
@@ -417,8 +421,8 @@ export default function Projects() {
           padding: 20px 22px 18px;
           background: linear-gradient(
             to top,
-            rgba(0,0,0,0.82) 0%,
-            rgba(0,0,0,0.45) 45%,
+            rgba(0,0,0,0.92) 0%,
+            rgba(0,0,0,0.48) 55%,
             transparent 100%
           );
           animation: heroOverlayIn 0.55s cubic-bezier(.16,1,.3,1) 0.1s both;
@@ -430,18 +434,18 @@ export default function Projects() {
           color: #ffffff !important;
           letter-spacing: -0.02em;
           line-height: 1.2;
-          text-shadow: 0 2px 16px rgba(0,0,0,0.9) !important;
+          text-shadow: 0 2px 12px rgba(0,0,0,0.95), 0 0 8px rgba(var(--accent-rgb, 99, 102, 241), 0.3) !important;
         }
         #projects .hero-desc {
           margin: 0 !important;
           font-size: 0.76rem !important;
-          color: rgba(255,255,255,0.82) !important;
+          color: rgba(255,255,255,0.92) !important;
           line-height: 1.55;
           display: -webkit-box !important;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
-          text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+          text-shadow: 0 1px 8px rgba(0,0,0,0.9);
         }
 
         /* ─── ACTIVE CARD: CONTENT PANEL ───────────────── */
