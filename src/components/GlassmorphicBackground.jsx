@@ -54,7 +54,7 @@ export default function GlassmorphicBackground() {
           height: 320px;
           top: -40px;
           left: 10%;
-          background: radial-gradient(circle at top left, rgba(var(--accent-rgb, 0, 82, 255), 0.08), transparent 70%);
+          background: radial-gradient(circle at top left, var(--accent-glow), transparent 70%);
           animation: orb-float-1 26s infinite linear;
         }
 
@@ -91,7 +91,7 @@ export default function GlassmorphicBackground() {
           height: 200px;
           bottom: -20px;
           left: 30%;
-          background: radial-gradient(circle at bottom left, rgba(var(--accent-rgb, 0, 82, 255), 0.06), transparent 70%);
+          background: radial-gradient(circle at bottom left, var(--accent-glow), transparent 70%);
           animation: orb-float-1 20s infinite linear reverse;
         }
       `}</style>
