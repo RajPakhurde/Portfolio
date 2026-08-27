@@ -229,7 +229,7 @@ export default function Contact() {
                     type="submit"
                     disabled={status === "sending"}
                     whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden w-full py-3 rounded-lg bg-accent hover:bg-accent-bright text-white font-semibold text-sm transition-all duration-300 shadow-button-primary hover:shadow-button-primary-hover disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
+                    className="group relative overflow-hidden w-full py-3 rounded-lg bg-gradient-to-r from-accent to-accent-bright text-white font-semibold text-sm transition-all duration-300 shadow-button-primary hover:shadow-button-primary-hover disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center cursor-pointer"
                   >
                     <span className="relative z-10">
                       {status === "sending" ? "Sending..." : "Send Message"}

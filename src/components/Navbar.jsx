@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { FaGithub, FaLinkedin, FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaBars, FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
+  { label: "Work", href: "#projects" },
+  { label: "My Journey", href: "#experience" },
   { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -45,14 +44,6 @@ export default function Navbar({ theme, toggleTheme }) {
 
         {/* Right side: theme toggle + icons + resume */}
         <div className="hidden md:flex items-center gap-5">
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-border-default hover:bg-surface-hover text-foreground-muted hover:text-foreground transition-all duration-200 cursor-pointer shadow-inner-highlight"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? <FaSun className="text-sm" /> : <FaMoon className="text-sm" />}
-          </button>
 
           <a 
             href="https://github.com/rajpakhurde" 
@@ -83,14 +74,6 @@ export default function Navbar({ theme, toggleTheme }) {
 
         {/* Mobile Hamburger / Controls */}
         <div className="flex md:hidden items-center gap-3">
-          {/* Mobile Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-border-default hover:bg-surface-hover text-foreground-muted hover:text-foreground transition-all duration-200 cursor-pointer"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? <FaSun className="text-sm" /> : <FaMoon className="text-sm" />}
-          </button>
 
           <button
             className="text-foreground-muted hover:text-foreground text-xl transition-colors duration-200 focus:outline-none"

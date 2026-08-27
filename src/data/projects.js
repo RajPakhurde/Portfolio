@@ -1,5 +1,15 @@
 export const projects = [
   {
+    title: "InvoiceFlow",
+    description:
+      "A smart invoicing and business finance management web application featuring centralized Express error handling, a database seeding script, and an interactive finance dashboard.",
+    highlight: "Designed standardized API response formats, integrated Prisma ORM schema patterns, and built responsive mobile line-item invoice editors.",
+    tech: ["React.js", "Express.js", "Prisma", "PostgreSQL", "Tailwind CSS", "Recharts"],
+    image: "/projects/invoiceflow.png",
+    github: "https://github.com/RajPakhurde/InvoiceFlow",
+    demo: "https://invoiceflow.rajpakhurde.in",
+  },
+  {
     title: "AutoSphere",
     description:
       "A full-stack vehicle resale platform with role-based workflows for Admin, Buyer, and Seller, engineered using an Event-Driven Microservices Architecture with a decoupled .NET (C#) notification service.",
@@ -19,4 +29,5 @@ export const projects = [
     github: "https://github.com/RajPakhurde/AcademiaSuite",
     demo: null,
   },
+  
 ];

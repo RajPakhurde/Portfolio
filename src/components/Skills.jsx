@@ -17,11 +17,10 @@ const categories = [
     iconColor: "text-accent",
     skills: [
       { name: "Java",       icon: <FaJava /> },
-      { name: "C#",         icon: <SiSharp /> },
       { name: "JavaScript", icon: <FaJs /> },
+      { name: "C#",         icon: <SiSharp /> },
       { name: "SQL",        icon: <FaDatabase /> },
-      { name: "HTML",       icon: <FaHtml5 /> },
-      { name: "CSS",        icon: <FaCss3Alt /> },
+     
     ],
   },
   {
@@ -32,6 +31,8 @@ const categories = [
       { name: "React.js",       icon: <FaReact /> },
       { name: "Redux Toolkit",  icon: <SiRedux /> },
       { name: "Bootstrap",      icon: <FaBootstrap /> },
+      { name: "HTML",       icon: <FaHtml5 /> },
+      { name: "CSS",        icon: <FaCss3Alt /> },
     ],
   },
   {
@@ -41,7 +42,7 @@ const categories = [
     skills: [
       { name: "Spring Boot",   icon: <SiSpringboot /> },
       { name: ".NET Core",     icon: <SiDotnet /> },
-      { name: "Microservices", icon: <FaServer /> },
+      // { name: "Microservices", icon: <FaServer /> },
       { name: "Node.js",       icon: <FaNodeJs /> },
       { name: "Express.js",    icon: <SiExpress /> },
       { name: "Hibernate",     icon: <SiHibernate /> },
@@ -136,7 +137,7 @@ export default function Skills() {
               </motion.div>
 
               {/* Skill Cards */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3">
                 {skills.map(({ name, icon }, i) => (
                   <motion.div
                     key={name}
@@ -145,15 +146,15 @@ export default function Skills() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                     custom={0.05 * catIdx + 0.03 * i}
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    <SpotlightCard className="p-4 cursor-default">
-                      <div className="flex flex-col items-center gap-3 w-full h-full justify-center py-2">
-                        <span className={`text-3xl ${iconColor} transition-transform duration-300 group-hover:scale-110`}>
+                    <SpotlightCard className="p-2.5 cursor-default">
+                      <div className="flex flex-col items-center gap-1.5 w-full h-full justify-center py-1">
+                        <span className={`text-xl sm:text-2xl ${iconColor} transition-transform duration-300 group-hover:scale-110`}>
                           {icon}
                         </span>
-                        <span className="text-foreground-muted text-xs font-semibold text-center font-sans tracking-wide">
+                        <span className="text-foreground-muted text-[10px] sm:text-xs font-medium text-center font-sans tracking-wide">
                           {name}
                         </span>
                       </div>

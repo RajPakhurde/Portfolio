@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import About from "../components/About";
 import Skills from "../components/Skills";
 import Experience from "../components/Experience";
 import Projects from "../components/Projects";
@@ -68,10 +67,9 @@ export default function MainLayout() {
         <Navbar theme={theme} toggleTheme={toggleTheme} />
         <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
           <Hero />
-          <About />
-          <Skills />
-          <Experience />
           <Projects />
+          <Experience />
+          <Skills />
           <GitHubStats theme={theme} />
           <Contact />
         </main>

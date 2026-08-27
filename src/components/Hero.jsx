@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
@@ -40,14 +41,53 @@ export default function Hero() {
   const opacity = useTransform(scrollY, [0, 250], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.97]);
 
+  const words = ["Full Stack Dev", "Software Engineer", "Freelancer"];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const activeWord = words[currentWordIndex];
+    let delay = 100; // default typing speed
+    
+    if (isDeleting) {
+      delay = 50; // deleting is faster
+    }
+    
+    if (!isDeleting && currentText === activeWord) {
+      delay = 2000; // pause at the end of word
+    } else if (isDeleting && currentText === "") {
+      delay = 500; // pause after deleting
+    }
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (currentText === activeWord) {
+          setIsDeleting(true);
+        } else {
+          setCurrentText(activeWord.substring(0, currentText.length + 1));
+        }
+      } else {
+        if (currentText === "") {
+          setIsDeleting(false);
+          setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+        } else {
+          setCurrentText(activeWord.substring(0, currentText.length - 1));
+        }
+      }
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, currentWordIndex]);
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+      className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden"
     >
       <motion.div 
         style={{ y, opacity, scale }}
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 flex flex-col-reverse md:flex-row items-center gap-16 relative z-10"
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12 pb-28 flex flex-col-reverse md:flex-row items-center gap-16 relative z-10"
       >
         {/* Left: Text Content */}
         <div className="flex-1 text-center md:text-left space-y-6">
@@ -80,9 +120,16 @@ export default function Hero() {
             custom={0.1}
             className="text-4xl sm:text-5xl lg:text-7xl font-serif font-semibold tracking-tight leading-none text-foreground"
           >
-            Full Stack{" "}
-            <span className="block mt-2 bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
-              Developer
+            I am a{" "}
+            <span className="block mt-2 min-h-[1.2em]">
+              <span className="bg-gradient-to-r from-accent via-accent-bright to-accent bg-clip-text text-transparent animate-shimmer">
+                {currentText}
+              </span>
+              <motion.span
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
+                className="inline-block w-[4px] h-[0.85em] bg-accent ml-2 align-middle"
+              />
             </span>
           </motion.h1>
 
