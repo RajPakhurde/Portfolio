@@ -200,8 +200,28 @@ export default function Projects() {
         cardEls[justExited].classList.remove("is-active");
       }
 
-      activeIndex = newIndex;
-      render(direction);
+      if (direction === -1) {
+        const incomingCard = cardEls[newIndex];
+        if (incomingCard) {
+          // Instantly snap incoming card to the far left off-screen
+          incomingCard.style.transition = "none";
+          incomingCard.style.transform = "translateY(-50%) translateX(-105%) scale(0.8)";
+          incomingCard.offsetHeight; // Force reflow
+
+          // Let it animate in from the left in the next frame
+          requestAnimationFrame(() => {
+            incomingCard.style.transition = "";
+            activeIndex = newIndex;
+            render(direction);
+          });
+        } else {
+          activeIndex = newIndex;
+          render(direction);
+        }
+      } else {
+        activeIndex = newIndex;
+        render(direction);
+      }
 
       clearTimeout(exitTimer);
       exitTimer = setTimeout(() => {
